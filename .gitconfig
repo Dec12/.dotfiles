@@ -1,0 +1,6 @@
+[core]
+  path = ~/.dotfiles/.gitglobalconfig
+
+[user]
+  email = dec12.kaz@gmail.com
+  name  = dec12

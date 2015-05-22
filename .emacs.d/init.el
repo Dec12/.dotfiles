@@ -13,5 +13,5 @@
 ;; ----------------------------------------------------
 
 (cond ((string-match "24." emacs-version)
-        (load "~/.dotfiles/emacs.d/emacs-24.el"))
+        (load "~/.dotfiles/.emacs.d/emacs-24.el"))
 )

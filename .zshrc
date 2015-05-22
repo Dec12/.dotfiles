@@ -113,7 +113,7 @@ if is-at-least 4.3.10; then
     # git 用のフォーマット
     # git のときはステージしているかどうかを表示
     zstyle ':vcs_info:git:*' formats '[%b]' '%c%u %m'
-    zstyle ':vcs_info:git:*' actionformats '[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' actionformats '[%b]' '%c%u%m' '<!%a>'
     zstyle ':vcs_info:git:*' check-for-changes true
     zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列

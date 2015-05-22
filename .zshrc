@@ -104,16 +104,16 @@ zstyle ':vcs_info:*' max-exports 3
 zstyle ':vcs_info:*' enable git svn hg bzr
 # 標準のフォーマット(git 以外で使用)
 # misc(%m) は通常は空文字列に置き換えられる
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b]' '%m' '<!%a>'
+zstyle ':vcs_info:*' formats '[%b]'
+zstyle ':vcs_info:*' actionformats '[%b]' '%m' '<!%a>'
 zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
 zstyle ':vcs_info:bzr:*' use-simple true
 
 if is-at-least 4.3.10; then
     # git 用のフォーマット
     # git のときはステージしているかどうかを表示
-    zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
-    zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
+    zstyle ':vcs_info:git:*' formats '[%b]' '%c%u %m'
+    zstyle ':vcs_info:git:*' actionformats '[%b]' '%c%u %m' '<!%a>'
     zstyle ':vcs_info:git:*' check-for-changes true
     zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
     zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
@@ -252,8 +252,8 @@ function _update_vcs_info_msg() {
         # vcs_info で情報を取得した場合
         # $vcs_info_msg_0_ , $vcs_info_msg_1_ , $vcs_info_msg_2_ を
         # それぞれ緑、黄色、赤で表示する
-        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_} " )
-        [[ -n "$vcs_info_msg_1_" ]] && psvar[2]=( "${vcs_info_msg_1_} " )
+        [[ -n "$vcs_info_msg_0_" ]] && psvar[1]=( "${vcs_info_msg_0_}" )
+        [[ -n "$vcs_info_msg_1_" ]] && psvar[2]=( "${vcs_info_msg_1_}" )
         [[ -n "$vcs_info_msg_2_" ]] && psvar[3]=( "${vcs_info_msg_2_}" )
     fi
 }
@@ -266,7 +266,7 @@ add-zsh-hook precmd _update_vcs_info_msg
 autoload -U colors; colors
 
 # user
-vcs_prompt="%F{green}%1v%f%F{yellow}%2v%f%F{red}%3v%f"
+vcs_prompt="%F{red}%3v%f%F{yellow}%2v%f%F{green}%1v%f "
 tmp_prompt="%{${fg[magenta]}%}%n@%m${WINDOW:+"[$WINDOW]"} %B%(?,%{${fg[green]}%},%{${fg[red]}%})%(!,#,>)%b %{${reset_color}%}"
 tmp_prompt2="%{${fg[magenta]}%}%_> %{${reset_color}%}"
 tmp_rprompt="%{${fg[green]}%}[%~] %{${fg[yellow]}%}[%W %T]%{${reset_color}%}"

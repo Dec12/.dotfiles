@@ -16,7 +16,7 @@
   quotepath = false
 
 [merge]
-  tool = vimdiff
+  tool = emerge
   ff = false
 
 [branch]

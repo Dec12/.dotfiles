@@ -5,7 +5,7 @@
 ;; ----------------------------------------------------
 
 ; first directory
-(cd "~/")
+;; (cd "~/")
 
 ; load-path
 (add-to-list 'load-path "~/.emacs.d/site-lisp")

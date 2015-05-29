@@ -1,6 +1,6 @@
 #! /bin/bash
 
-install_list=(".zshrc" ".tmux.conf" ".emacs.d/init.el")
+install_list=(".zshrc" ".tmux.conf" ".emacs.d/init.el" ".emacs.d/site-lisp")
 
 for item in ${install_list[@]}
 do

@@ -25,7 +25,7 @@ esac
 # # Aliases
 # # ----------------------------
 
-alias ls='ls --color=auto'
+alias ls='gls --color=auto'
 alias la='ls -Alh'
 alias ll='ls -lh'
 alias l=ls

@@ -1,7 +1,9 @@
 # # -----------------------------
 # # Import Local Settings
 # # -----------------------------
-source $HOME/.zsh.d/*.sh
+for file in `find "$HOME/.zsh.d/" -name "*.sh"`; do 
+   source "$file"
+done
 
 
 # # ----------------------------
@@ -9,7 +11,14 @@ source $HOME/.zsh.d/*.sh
 # # ----------------------------
 
 export TERM="xterm-256color"
-eval $(dircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
+case ${OSTYPE} in
+    darwin*)
+        eval $(gdircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
+    ;;
+    linux*)
+        eval $(dircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
+    ;;
+esac
 
 
 # # ----------------------------

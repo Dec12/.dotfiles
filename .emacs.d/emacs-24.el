@@ -204,3 +204,8 @@
 ;; 透過
 (if window-system (set-frame-parameter nil 'alpha 85))
 
+;; ----------------------------------------------------
+;; tramp
+;; ----------------------------------------------------
+(require 'tramp)
+(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")

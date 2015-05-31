@@ -10,7 +10,7 @@ done
 # # Display
 # # ----------------------------
 
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 case ${OSTYPE} in
     darwin*)
         eval $(gdircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
@@ -309,20 +309,17 @@ kterm*|xterm*|)
 esac
 
 
-# # # -----------------------------
-# # # Git
-# # # -----------------------------
+# # -----------------------------
+# # Emacs Tramp 
+# # -----------------------------
 
-# autoload -Uz vcs_info
-# setopt prompt_subst
-# zstyle ':vcs_info:git:*' check-for-changes true
-# zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-# zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-# zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f "
-# zstyle ':vcs_info:*' actionformats '[%b|%a]'
-# precmd () {
-#     psvar=()
-#     LANG=en_US.UTF-8 vcs_info
-#     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-# }
-# RPROMPT='${vcs_info_msg_0_}'$RPROMPT
+case "$TERM" in
+    dumb | emacs)
+        unsetopt zle
+        unsetopt prompt_cr
+        unsetopt prompt_subst
+        unfunction precmd
+        unfunction preexec
+        PS1='$ '
+        ;;
+esac

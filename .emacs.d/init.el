@@ -1,7 +1,7 @@
 ;;; -*- Mode: Emacs-Lisp ; coding: utf-8-unix -*-;;;
 
 ;; ----------------------------------------------------
-;; 共通
+;; Emacs Common
 ;; ----------------------------------------------------
 
 (setq my-emacs-common-file "~/.dotfiles/.emacs.d/emacs-common.el")
@@ -9,7 +9,7 @@
     (load-file (expand-file-name my-emacs-common-file)))
 
 ;; ----------------------------------------------------
-;; Emacs 24 専用
+;; Emacs 24
 ;; ----------------------------------------------------
 
 (cond ((string-match "24." emacs-version)

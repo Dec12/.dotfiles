@@ -10,7 +10,6 @@ done
 # # Display
 # # ----------------------------
 
-# export TERM="xterm-256color"
 case ${OSTYPE} in
     darwin*)
         eval $(gdircolors ~/.dotfiles/.dircolors-solarized/dircolors.256dark)
@@ -25,7 +24,15 @@ esac
 # # Aliases
 # # ----------------------------
 
-alias ls='gls --color=auto'
+case ${OSTYPE} in
+    darwin*)
+        alias ls='gls --color=auto'
+    ;;
+    linux*)
+        alias ls='ls --color=auto'
+    ;;
+esac
+
 alias la='ls -Alh'
 alias ll='ls -lh'
 alias l=ls
@@ -274,30 +281,39 @@ add-zsh-hook precmd _update_vcs_info_msg
 
 autoload -U colors; colors
 
-# user
-vcs_prompt="%F{red}%3v%f%F{yellow}%2v%f%F{green}%1v%f "
-tmp_prompt="%{${fg[magenta]}%}%n@%m${WINDOW:+"[$WINDOW]"} %B%(?,%{${fg[green]}%},%{${fg[red]}%})%(!,#,>)%b %{${reset_color}%}"
-tmp_prompt2="%{${fg[magenta]}%}%_> %{${reset_color}%}"
-tmp_rprompt="%{${fg[green]}%}[%~] %{${fg[yellow]}%}[%W %T]%{${reset_color}%}"
-tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
+case ${UID} in
+    0)
+        # root
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    # unfunction precmd
+    # unfunction preexec        unsetopt zle
+    tmp_prompt="%m:%~> "
+    tmp_prompt2=""
+    tmp_rprompt=""
+    tmp_sprompt=""
 
-# root
-if [ ${UID} -eq 0 ]; then
-  tmp_prompt="%B%U${tmp_prompt}%u%b"
-  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
-  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
-  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
-fi
+    ;;
+    *)
+    # user
+    vcs_prompt="%F{red}%3v%f%F{yellow}%2v%f%F{green}%1v%f "
+    tmp_prompt="%{${fg[magenta]}%}%n@%m${WINDOW:+"[$WINDOW]"} %B%(?,%{${fg[green]}%},%{${fg[red]}%})%(!,#,>)%b %{${reset_color}%}"
+    tmp_prompt2="%{${fg[magenta]}%}%_> %{${reset_color}%}"
+    tmp_rprompt="%{${fg[green]}%}[%~] %{${fg[yellow]}%}[%W %T]%{${reset_color}%}"
+    tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
+    # # ssh
+    # [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+    # tmp_prompt="%{${fg[red]}%}%n@%m${WINDOW:+"[$WINDOW]"} %B%(?,%{${fg[green]}%},%{${fg[red]}%})%(!,#,>)%b %{${reset_color}%}"
+    # ;
+    ;;
+esac
 
 PROMPT=$tmp_prompt               # 通常のプロンプト
 PROMPT2=$tmp_prompt2             # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
 RPROMPT=$vcs_prompt$tmp_rprompt  # 右側のプロンプト
 SPROMPT=$tmp_sprompt             # スペル訂正用プロンプト
 
-# ssh
-[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[red]}%}%n@%m${WINDOW:+"[$WINDOW]"} %B%(?,%{${fg[green]}%},%{${fg[red]}%})%(!,#,>)%b %{${reset_color}%}"
-;
 
 # Title (user@hostname) #
 case "${TERM}" in
@@ -314,12 +330,10 @@ esac
 # # -----------------------------
 
 case "$TERM" in
-    dumb | emacs)
+    dumb)
         unsetopt zle
         unsetopt prompt_cr
         unsetopt prompt_subst
-        unfunction precmd
-        unfunction preexec
         PS1='$ '
         ;;
 esac

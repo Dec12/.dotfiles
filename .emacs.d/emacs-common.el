@@ -4,6 +4,9 @@
 ;; 基本設定
 ;; ----------------------------------------------------
 
+;; clipboard
+(setq x-select-enable-clipboard t)
+
 ;; load-pathの追加関数
 (defun add-to-load-path (&rest paths)
   (let (path)

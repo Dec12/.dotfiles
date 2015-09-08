@@ -224,6 +224,13 @@
 (require 'tramp)
 (setq tramp-shell-prompt-pattern "^.*[#$%>] *")
 
+(add-to-list 'tramp-default-proxies-alist
+             '(nil "\\`root\\'" "/ssh:%h:"))
+(add-to-list 'tramp-default-proxies-alist
+             '("localhost" nil nil))
+(add-to-list 'tramp-default-proxies-alist
+             '((regexp-quote (system-name)) nil nil))
+
 (defun reopen-with-sudo ()
   "Reopen current buffer-file with sudo using tramp."
   (interactive)
@@ -231,3 +238,4 @@
     (if file-name
         (find-alternate-file (concat "/sudo::" file-name))
       (error "Cannot get a file name"))))
+
